@@ -139,10 +139,11 @@ async function post(itemCode, description, itemName, catchcopy) {
     console.log("かかかか");
     var descriptionCut = itemName + catchcopy + description.substring(0, 200) + " #あったら便利 #欲しいものリスト #ランキング #人気 #楽天市場";
     console.log(descriptionCut);
-    
+
     try {
       //　投稿処理
       await page.waitForSelector("#collect-content", {
+        timeout: 30000,
         visible: true,
       });
       await page.click("#collect-content");
