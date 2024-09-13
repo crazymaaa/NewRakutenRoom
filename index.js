@@ -4,14 +4,14 @@ const express = require("express");
 require('dotenv').config();
 const axios = require('axios');
 
-var fs   = require('fs');
+var fs = require('fs');
 chromium.setHeadlessMode = true;
 chromium.setGraphicsMode = false;
 
 async function test(age) {
   var random = Math.floor(Math.random() * 34) + 1;
-  var requestUrl = "https://app.rakuten.co.jp/services/api/IchibaItem/Ranking/20220601?applicationId=" + process.env.RAKUTEN_APP_ID
-    + "&age=" + age + "&sex=1&carrier=0&page=" + random;
+  var requestUrl = "https://app.rakuten.co.jp/services/api/IchibaItem/Ranking/20220601?applicationId=" + process.env.RAKUTEN_APP_ID +
+    "&age=" + age + "&sex=1&carrier=0&page=" + random;
   console.log(requestUrl);
   await axios.get(requestUrl, {
 
@@ -44,10 +44,10 @@ var args = [
   30,
   40
 ]
-var ageNo = args[Math.floor(Math.random()* args.length)];
+var ageNo = args[Math.floor(Math.random() * args.length)];
 try {
   test(ageNo);
-} catch (error){ 
+} catch (error) {
   // var dateTime = new Date().toISOString() 
   // fs.writeFileSync("." + dateTime + '.txt', error);
 }
@@ -94,24 +94,30 @@ async function post(itemCode, description, itemName, catchcopy) {
     // ログイン処理
     const xpathId = "xpath=/html/body/div[2]/div/div/div[1]/div/form/div/table/tbody/tr[1]/td[2]/input";
     const xpathPassword = "xpath=/html/body/div[2]/div/div/div[1]/div/form/div/table/tbody/tr[2]/td[2]/input"
-    await page.waitForSelector(xpathId, {visible: true});
-    await page.focus(xpathId,);
+    await page.waitForSelector(xpathId, {
+      visible: true
+    });
+    await page.focus(xpathId, );
     await page.type(xpathId, userId);
-    await page.waitForSelector(xpathPassword, {visible: true});
+    await page.waitForSelector(xpathPassword, {
+      visible: true
+    });
     await page.focus(xpathPassword);
     await page.type(xpathPassword, password);
     await page.click('xpath=/html/body/div[2]/div/div/div[1]/div/form/div/p[1]/input');
     console.log("うううう");
     // ログイン後のページ遷移を待つ
 
-    try{
+    try {
       await page.waitForSelector("#collect-content", {
-
+        timeout: 30000,
         visible: true,
       });
       console.log("ええええ");
     } catch (error) {
       console.log(error)
+      await browser.close();
+      return;
     }
 
 
@@ -124,7 +130,7 @@ async function post(itemCode, description, itemName, catchcopy) {
       });
       modalElement = await page.$(".modal-dialog-container");
       console.log("おおおお");
-    } catch (error) { }
+    } catch (error) {}
     if (modalElement) {
       console.log("「すでにコレしている商品です」のため処理を終了");
       await browser.close();
@@ -133,18 +139,29 @@ async function post(itemCode, description, itemName, catchcopy) {
     console.log("かかかか");
     var descriptionCut = itemName + catchcopy + description.substring(0, 200) + " #あったら便利 #欲しいものリスト #ランキング #人気 #楽天市場";
     console.log(descriptionCut);
-    //　投稿処理
-    await page.waitForSelector("#collect-content", {
-      visible: true,
-    });
-    await page.click("#collect-content");
-    await page.type("#collect-content", descriptionCut, { delay: 100 });
+    
+    try {
+      //　投稿処理
+      await page.waitForSelector("#collect-content", {
+        visible: true,
+      });
+      await page.click("#collect-content");
+      await page.type("#collect-content", descriptionCut, {
+        delay: 100
+      });
 
-    await page.waitForSelector("button", { visible: true });
-    console.log("きききき");
-    await page.click('xpath=//*[@id="scroller"]/div[4]/div[6]/div[1]/button', {
-      visible: true,
-    });
+      await page.waitForSelector("button", {
+        visible: true
+      });
+      console.log("きききき");
+      await page.click('xpath=//*[@id="scroller"]/div[4]/div[6]/div[1]/button', {
+        visible: true,
+      });
+    } catch (error) {
+      console.log(error)
+      await browser.close();
+      return;
+    }
 
     await browser.close();
   } catch (error) {
