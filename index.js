@@ -100,14 +100,20 @@ async function post(itemCode, description, itemName, catchcopy) {
     await page.waitForSelector(xpathPassword, {visible: true});
     await page.focus(xpathPassword);
     await page.type(xpathPassword, password);
-    await page.click('input[value="ログイン"]');
+    await page.click('xpath=/html/body/div[2]/div/div/div[1]/div/form/div/p[1]/input');
     console.log("うううう");
     // ログイン後のページ遷移を待つ
-    await page.waitForSelector("#collect-content", {
 
-      visible: true,
-    });
-    console.log("ええええ");
+    try{
+      await page.waitForSelector("#collect-content", {
+
+        visible: true,
+      });
+      console.log("ええええ");
+    } catch (error) {
+      console.log(error)
+    }
+
 
     // コレ！済みの場合は、処理を終了
     let modalElement = null;
