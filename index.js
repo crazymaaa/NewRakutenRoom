@@ -89,7 +89,7 @@ async function post(itemCode, description, itemName, catchcopy) {
     console.log(url);
 
     // await page.goto(url, {waitUntil: 'networkidle0'});
-    //await page.setDefaultNavigationTimeout(30000);
+    await page.setDefaultNavigationTimeout(30000);
     //await page.waitForTimeout(1000)
     await page.goto(url);
     const userId = process.env.RAKUTEN_USER_ID
@@ -115,12 +115,15 @@ async function post(itemCode, description, itemName, catchcopy) {
 
     try {
       await page.waitForSelector("#collect-content", {
-        timeout: 5000,
+        //timeout: 5000,
         visible: true,
       });
       console.log("ええええ");
     } catch (error) {
       console.log(error)
+      for (const page of await browser.pages()) {
+        await page.close();
+      }
       await browser.close();
       return;
     }
@@ -131,13 +134,16 @@ async function post(itemCode, description, itemName, catchcopy) {
     try {
       await page.waitForSelector(".modal-dialog-container", {
         visible: true,
-        timeout: 500,
+        //timeout: 500,
       });
       modalElement = await page.$(".modal-dialog-container");
       console.log("おおおお");
     } catch (error) {}
     if (modalElement) {
       console.log("「すでにコレしている商品です」のため処理を終了");
+      for (const page of await browser.pages()) {
+        await page.close();
+      }
       await browser.close();
       return;
     }
@@ -148,7 +154,7 @@ async function post(itemCode, description, itemName, catchcopy) {
     try {
       //　投稿処理
       await page.waitForSelector("#collect-content", {
-        timeout: 30000,
+        //timeout: 30000,
         visible: true,
       });
       await page.click("#collect-content");
@@ -165,13 +171,23 @@ async function post(itemCode, description, itemName, catchcopy) {
       });
     } catch (error) {
       console.log(error)
+      for (const page of await browser.pages()) {
+        await page.close();
+      }
       await browser.close();
       return;
     }
 
+    for (const page of await browser.pages()) {
+      await page.close();
+    }
     await browser.close();
   } catch (error) {
     console.log(error);
+    for (const page of await browser.pages()) {
+      await page.close();
+    }
+    await browser.close();
     return;
   }
 
