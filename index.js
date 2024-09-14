@@ -89,7 +89,7 @@ async function post(itemCode, description, itemName, catchcopy) {
     console.log(url);
 
     // await page.goto(url, {waitUntil: 'networkidle0'});
-    await page.setDefaultNavigationTimeout(30000);
+    //await page.setDefaultNavigationTimeout(30000);
     //await page.waitForTimeout(1000)
     await page.goto(url);
     const userId = process.env.RAKUTEN_USER_ID
@@ -115,7 +115,7 @@ async function post(itemCode, description, itemName, catchcopy) {
 
     try {
       await page.waitForSelector("#collect-content", {
-        timeout: 30000,
+        timeout: 5000,
         visible: true,
       });
       console.log("ええええ");
