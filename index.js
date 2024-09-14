@@ -25,7 +25,12 @@ async function test(age) {
         console.log((i + 1).toString() + "件目スタート");
         console.log(itemCode);
         console.log(description);
-        await post(itemCode, description, itemName, catchcopy);
+        try{
+          await post(itemCode, description, itemName, catchcopy);
+        } catch(error){
+          console.log(error + " 失敗");
+        }
+
         console.log("完了");
       }
 
