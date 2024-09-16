@@ -38,6 +38,10 @@ const test = async(age) => {
         } catch (error) {
           console.log(error + " 失敗");
         }
+        for (const page of await browser.pages()) {
+          await page.close();
+        }
+        await browser.close();
 
         console.log("完了");
       }
