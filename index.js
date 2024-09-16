@@ -176,7 +176,6 @@ const app = express();
 
 app.get("/", (req, res) => {
   try {
-    // test(20);
     var args = [
       20,
       30,
