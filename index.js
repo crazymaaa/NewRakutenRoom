@@ -8,7 +8,7 @@ var fs = require('fs');
 chromium.setHeadlessMode = true;
 chromium.setGraphicsMode = false;
 
-async function test(age) {
+const test = async(age) => {
   var random = Math.floor(Math.random() * 34) + 1;
   var requestUrl = "https://app.rakuten.co.jp/services/api/IchibaItem/Ranking/20220601?applicationId=" + process.env.RAKUTEN_APP_ID +
     "&age=" + age + "&sex=1&carrier=0&page=" + random;
@@ -19,7 +19,7 @@ async function test(age) {
     executablePath: await chromium.executablePath(),
     headless: chromium.headless,
   });
-  
+
   await axios.get(requestUrl, {
 
   }).then(async (response) => {
