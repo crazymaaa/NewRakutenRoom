@@ -25,9 +25,9 @@ async function test(age) {
         console.log((i + 1).toString() + "件目スタート");
         console.log(itemCode);
         console.log(description);
-        try{
+        try {
           await post(itemCode, description, itemName, catchcopy);
-        } catch(error){
+        } catch (error) {
           console.log(error + " 失敗");
         }
 
@@ -43,19 +43,6 @@ async function test(age) {
 }
 
 
-// test(20);
-var args = [
-  20,
-  30,
-  40
-]
-var ageNo = args[Math.floor(Math.random() * args.length)];
-try {
-  test(ageNo);
-} catch (error) {
-  // var dateTime = new Date().toISOString() 
-  // fs.writeFileSync("." + dateTime + '.txt', error);
-}
 
 
 
@@ -195,19 +182,28 @@ async function post(itemCode, description, itemName, catchcopy) {
 }
 
 
-// const app = express();
+const app = express();
 
-// app.get("/", (req, res) => {
-//     try {
-//         test()
-//         console.log("ログ定期実行")
+app.get("/", (req, res) => {
+  try {
+    // test(20);
+    var args = [
+      20,
+      30,
+      40
+    ]
+    var ageNo = args[Math.floor(Math.random() * args.length)];
 
-//     } catch (err) {
-//         console.log(err);
-//     }
-//     res.send('get');
-// });
+
+    test(ageNo);
+    console.log("ログ定期実行")
+
+  } catch (err) {
+    console.log(err);
+  }
+  res.send('get');
+});
 
 
-// const PORT = process.env.PORT || 3000;
-// app.listen(PORT);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT);
