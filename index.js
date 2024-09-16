@@ -53,10 +53,10 @@ const test = async(age) => {
     return;
   });
 
-  for (const page of await browser.pages()) {
-    await page.close();
-  }
-  await browser.close();
+  // for (const page of await browser.pages()) {
+  //   await page.close();
+  // }
+  // await browser.close();
 
 }
 
