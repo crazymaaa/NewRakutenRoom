@@ -44,18 +44,6 @@ async function test(age) {
 
 
 
-
-
-
-// test(40);
-
-
-// function delay(time) {
-//   return new Promise(function(resolve) { 
-//       setTimeout(resolve, time)
-//   });
-// }
-
 async function post(itemCode, description, itemName, catchcopy) {
   try {
     const browser = await puppeteer.launch({
