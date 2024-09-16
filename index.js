@@ -14,12 +14,6 @@ const test = async(age) => {
   var requestUrl = "https://app.rakuten.co.jp/services/api/IchibaItem/Ranking/20220601?applicationId=" + process.env.RAKUTEN_APP_ID +
     "&age=" + age + "&sex=1&carrier=0&page=" + random;
   console.log(requestUrl);
-  const browser = await puppeteer.launch({
-    args: chromium.args,
-    defaultViewport: chromium.defaultViewport,
-    executablePath: await chromium.executablePath(),
-    headless: chromium.headless,
-  });
 
   await axios.get(requestUrl, {
 
@@ -35,14 +29,14 @@ const test = async(age) => {
         console.log(itemCode);
         console.log(description);
         try {
-          await post(itemCode, description, itemName, catchcopy, browser);
+          await post(itemCode, description, itemName, catchcopy);
         } catch (error) {
           console.log(error + " 失敗");
         }
-        for (const page of await browser.pages()) {
-          await page.close();
-        }
-        await browser.close();
+        // for (const page of await browser.pages()) {
+        //   await page.close();
+        // }
+        // await browser.close();
 
         console.log("完了");
       }
@@ -57,11 +51,17 @@ const test = async(age) => {
 
 
 
-async function post(itemCode, description, itemName, catchcopy, browser) {
+async function post(itemCode, description, itemName, catchcopy) {
   try {
-
-    const page = await browser.newPage();
-    // const page = await browser.newPage("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36");
+    const browser = await puppeteer.launch({
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath(),
+      headless: chromium.headless,
+    });
+  
+    // const page = await browser.newPage();
+    const page = await browser.newPage("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36");
     // await page.setUserAgent(
     //   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
     // );
