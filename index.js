@@ -168,6 +168,11 @@ async function post(itemCode, description, itemName, catchcopy, browser) {
     }
     await browser.close();
     return;
+  } finally{
+    for (const page of await browser.pages()) {
+      await page.close();
+    }
+    await browser.close();
   }
 
 
