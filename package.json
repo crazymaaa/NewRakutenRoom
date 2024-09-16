@@ -7,7 +7,7 @@
   "dependencies": {
     "axios": "^1.6.8",
     "dotenv": "^16.4.5",
-    "express": "^4.19.2",
+    "express": "^4.21.0",
     "jest": "^29.7.0",
     "puppeteer": "^23.3.0",
     "puppeteer-core": "^23.3.0"
