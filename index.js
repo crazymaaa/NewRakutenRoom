@@ -176,7 +176,7 @@ async function post(itemCode, description, itemName, catchcopy, browser) {
 
 const app = express();
 
-app.get("/", (req, res) => {
+app.get("/", async(req, res) => {
   try {
     var args = [
       20,
@@ -186,7 +186,7 @@ app.get("/", (req, res) => {
     var ageNo = args[Math.floor(Math.random() * args.length)];
 
 
-    test(ageNo);
+    await test(ageNo);
     console.log("ログ定期実行")
 
   } catch (err) {
