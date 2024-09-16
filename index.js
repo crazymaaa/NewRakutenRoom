@@ -45,10 +45,10 @@ const test = async(age) => {
     }
   }).catch((error) => {
     console.log(error);
-    for (const page of await browser.pages()) {
-      await page.close();
-    }
-    await browser.close();
+    // for (const page of await browser.pages()) {
+    //   await page.close();
+    // }
+    // await browser.close();
 
     return;
   });
