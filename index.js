@@ -81,7 +81,7 @@ async function post(itemCode, description, itemName, catchcopy, browser) {
     // await page.goto(url, {waitUntil: 'networkidle0'});
     await page.setDefaultNavigationTimeout(30000);
     //await page.waitForTimeout(1000)
-    await page.goto(url, {waitUntil: 'networkidle2'});
+    await page.goto(url);
     const userId = process.env.RAKUTEN_USER_ID
     const password = process.env.RAKUTEN_PASSWORD;
     console.log("いいいい");
