@@ -34,7 +34,7 @@ const test = async(age) => {
         console.log(itemCode);
         console.log(description);
         try {
-          await post(itemCode, description, itemName, catchcopy);
+          await post(itemCode, description, itemName, catchcopy, browser);
         } catch (error) {
           console.log(error + " 失敗");
         }
@@ -62,7 +62,7 @@ const test = async(age) => {
 
 
 
-async function post(itemCode, description, itemName, catchcopy) {
+async function post(itemCode, description, itemName, catchcopy, browser) {
   try {
 
   
