@@ -3,6 +3,7 @@ const chromium = require("@sparticuz/chromium");
 const express = require("express");
 require('dotenv').config();
 const axios = require('axios');
+export const maxDuration = 60;
 
 var fs = require('fs');
 chromium.setHeadlessMode = true;
