@@ -77,7 +77,7 @@ async function post(itemCode, description, itemName, catchcopy) {
       executablePath: await chromium.executablePath(),
       headless: chromium.headless,
     });
-    const page = await browser.newPage("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36");
+    const page = await browser.newPage();
     // await page.setUserAgent(
     //   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
     // );
