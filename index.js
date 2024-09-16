@@ -13,16 +13,18 @@ async function test(age) {
   var requestUrl = "https://app.rakuten.co.jp/services/api/IchibaItem/Ranking/20220601?applicationId=" + process.env.RAKUTEN_APP_ID +
     "&age=" + age + "&sex=1&carrier=0&page=" + random;
   console.log(requestUrl);
+  const browser = await puppeteer.launch({
+    args: chromium.args,
+    defaultViewport: chromium.defaultViewport,
+    executablePath: await chromium.executablePath(),
+    headless: chromium.headless,
+  });
+  
   await axios.get(requestUrl, {
 
   }).then(async (response) => {
     if (response.status !== 201) {
-      const browser = await puppeteer.launch({
-        args: chromium.args,
-        defaultViewport: chromium.defaultViewport,
-        executablePath: await chromium.executablePath(),
-        headless: chromium.headless,
-      });
+
       for (var i = 0; i < response.data.Items.length; i++) {
         var itemCode = response.data.Items[i].Item.itemCode;
         var itemName = response.data.Items[i].Item.itemName;
