@@ -17,6 +17,12 @@ async function test(age) {
 
   }).then(async (response) => {
     if (response.status !== 201) {
+      const browser = await puppeteer.launch({
+        args: chromium.args,
+        defaultViewport: chromium.defaultViewport,
+        executablePath: await chromium.executablePath(),
+        headless: chromium.headless,
+      });
       for (var i = 0; i < response.data.Items.length; i++) {
         var itemCode = response.data.Items[i].Item.itemCode;
         var itemName = response.data.Items[i].Item.itemName;
@@ -26,7 +32,7 @@ async function test(age) {
         console.log(itemCode);
         console.log(description);
         try {
-          await post(itemCode, description, itemName, catchcopy);
+          await post(itemCode, description, itemName, catchcopy, browser);
         } catch (error) {
           console.log(error + " 失敗");
         }
@@ -44,14 +50,9 @@ async function test(age) {
 
 
 
-async function post(itemCode, description, itemName, catchcopy) {
+async function post(itemCode, description, itemName, catchcopy, browser) {
   try {
-    const browser = await puppeteer.launch({
-      args: chromium.args,
-      defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath(),
-      headless: chromium.headless,
-    });
+
     const page = await browser.newPage();
     // await page.setUserAgent(
     //   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
